@@ -42,7 +42,7 @@ class Marrella {
             return
         }
 
-        if (bodyParts[19].visibility > 0.88 && bodyParts[20].visibility > 0.88 && bodyParts[17].visibility > 0.88) {
+        if (bodyParts[19].visibility > 0.75 && bodyParts[20].visibility > 0.75 && bodyParts[17].visibility > 0.75) {
             let leftHand = { x: bodyParts[19].x * 1280, y: bodyParts[19].y * 720 };
             let rightHand = { x: bodyParts[20].x * 1280, y: bodyParts[20].y * 720 };
             let leftHandPinky = { x: bodyParts[17].x * 1280, y: bodyParts[17].y * 720 }
@@ -97,7 +97,7 @@ class Marrella {
     releasing(bodyParts) {
         // it is finished here
 
-        if (bodyParts[11].visibility > 0.88 && bodyParts[12].visibility > 0.88 && bodyParts[13].visibility > 0.88 && bodyParts[14].visibility > 0.88) {
+        if (bodyParts[11].visibility > 0.75 && bodyParts[12].visibility > 0.75 && bodyParts[13].visibility > 0.75 && bodyParts[14].visibility > 0.75) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
