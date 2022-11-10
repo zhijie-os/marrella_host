@@ -81,7 +81,6 @@ class Marrella {
                 }
             }
 
-
         }
         else {
             this.reveal.count = 0;
