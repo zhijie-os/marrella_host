@@ -34,13 +34,17 @@ class Marrella {
         } // hand closed, wait for open
         else if (this.stage == 1) {
             console.log("stage - 1")
-            this.following(bodyParts)
+
+            this.hidden_following(bodyParts)
+            // this.following(bodyParts)
             this.revealing(bodyParts)
         } // revealed, wait for releasing
         else if (this.stage == 2) {
 
             console.log("stage - 2")
-            this.following(bodyParts)
+
+            this.hidden_following(bodyParts)
+            // this.following(bodyParts)
             this.releasing(bodyParts)
         } // released, wait for hands down
         else if (this.stage == 3) {
@@ -57,12 +61,16 @@ class Marrella {
         }
         else if (this.stage == 5) {
             console.log("stage - 5")
-            this.following(bodyParts)
+
+            this.hidden_following(bodyParts)
+            // this.following(bodyParts)
             this.hands_down(bodyParts)
         }
         else if (this.stage == 6) {
             console.log("stage - 6")
-            this.following(bodyParts)
+
+            this.hidden_following(bodyParts)
+            // this.following(bodyParts)
             this.releasing_for_good(bodyParts)
         }
         else if (this.stage == 7) {
