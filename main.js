@@ -56,6 +56,13 @@ class Marrella {
 
             console.log("stage - 5")
             this.following(bodyParts)
+            this.releasing_for_good(bodyParts)
+        }
+        else if(this.stage == 6) {
+            console.log("stage - 6")
+            this.center.x += 2
+            window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
+            // window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
         }
     }
 
@@ -206,6 +213,33 @@ class Marrella {
             }
         }
     }
+
+    releasing_for_good(bodyParts) {
+        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+            let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
+            let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
+            let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
+            let rightShoulder = { x: bodyParts[12].x * 1280, y: bodyParts[12].y * 720 }
+
+            // releasing/tracking
+            if (leftEblow.y < leftShoulder.y && rightEblow.y > rightShoulder.y) {
+                // reset
+                this.count++
+            }
+            else {
+                // reset
+                this.count = 0
+            }
+            // continously close for 5 frame
+            if (this.count > 8) {
+                this.stage = 6
+                this.count = 0
+            }
+        }
+    }
+
+
+
 }
 
 let marrella = new Marrella()
