@@ -17,6 +17,9 @@ class Marrella {
     count = 0
     stage = 0
 
+    swimming_count = 50
+    // random_dir = Math.random()<0.5?0:1
+
     constructor() {
 
     }
@@ -62,7 +65,7 @@ class Marrella {
             this.following(bodyParts)
             this.releasing_for_good(bodyParts)
         }
-        else if(this.stage == 7) {
+        else if (this.stage == 7) {
             console.log("stage - 7")
             this.center.x += 2
             window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
@@ -89,7 +92,7 @@ class Marrella {
             }
 
             if (this.count > 5) {
-                this.stage ++
+                this.stage++
                 this.count = 0
             }
         }
@@ -116,7 +119,7 @@ class Marrella {
             }
 
             if (this.count > 8) {
-                this.stage ++
+                this.stage++
                 this.count = 0
 
                 window.marrella.style.zIndex = '2';
@@ -149,7 +152,7 @@ class Marrella {
 
             // continously close for 5 frame
             if (this.count > 7) {
-                this.stage ++
+                this.stage++
                 this.count = 0
             }
         }
@@ -157,24 +160,24 @@ class Marrella {
     }
 
     following(bodyParts) {
-        if(bodyParts[17].visibility<0.85){
+        if (bodyParts[17].visibility < 0.85) {
             return
         }
         let left_index = bodyParts[17]
         let x = left_index.x * WIDTH
         let y = left_index.y * HEIGHT
-        let dif_x = x- this.center.x 
-        let dif_y = y- this.center.y 
+        let dif_x = x - this.center.x
+        let dif_y = y - this.center.y
 
-        this.center.x += Math.abs(dif_x) > 3 ? (Math.abs(dif_x)/dif_x)*3 : dif_x
-        this.center.y += Math.abs(dif_y) > 10 ? (Math.abs(dif_y)/dif_y)*10 : dif_y
+        this.center.x += Math.abs(dif_x) > 3 ? (Math.abs(dif_x) / dif_x) * 3 : dif_x
+        this.center.y += Math.abs(dif_y) > 10 ? (Math.abs(dif_y) / dif_y) * 10 : dif_y
         window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
         window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
     }
 
     hidden_following(bodyParts) {
 
-        
+
         let left_index = bodyParts[17]
         let x = left_index.x * WIDTH
         let y = left_index.y * HEIGHT
@@ -185,8 +188,29 @@ class Marrella {
         window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
     }
 
-    swimming(bodyParts) {
 
+    swimming(bodyParts) {
+        if (this.swimming_count >= 0) {
+            if (this.center.x - 1 >= 0)
+                this.center.x -= 1
+            if (this.center.y - 1 >= 0)
+                this.center.y -= 1
+            this.swimming_count--
+            if (this.swimming_count == 0)
+                this.swimming_count = -30
+        }
+        else {
+            if (this.center.x + 1 < WIDTH)
+                this.center.x += 1
+            if (this.center.y + 1 < HEIGHT)
+                this.center.y += 1
+            this.swimming_count++
+            if (this.swimming_count == 0)
+                this.swimming_count = 30
+        }
+
+        window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
+        window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
     }
 
     hands_down(bodyParts) {
@@ -207,7 +231,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 15) {
-                this.stage += 1 
+                this.stage += 1
                 this.count = 0
             }
         }
@@ -231,7 +255,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 5) {
-                this.stage ++
+                this.stage++
                 this.count = 0
             }
         }
@@ -255,7 +279,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 8) {
-                this.stage ++
+                this.stage++
                 this.count = 0
             }
         }
