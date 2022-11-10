@@ -7,42 +7,61 @@ window.marrella_gif = marrella_gif
 let WIDTH = 1280
 let HEIGHT = 720
 
+
 class Marrella {
     center = { x: 50, y: 50 }
     width = 500
     height = 500
-    release = { released: false, above_head: false, count: 0 }
-    reveal = { hand_close: false, hand_open: false, count: 0 }
+
+    count = 0
+    stage = 0
 
     constructor() {
 
     }
 
     update(bodyParts) {
-        if (!this.reveal.hand_close || !this.reveal.hand_open) {
-            this.revealing(bodyParts)
-        }
-        // check if need to release
-        if (this.reveal.hand_open) {
-            this.releasing(bodyParts)
-        }
 
-        if (this.release.released) {
+        // check for hand close
+        if (this.stage == 0) {
+            // hidden, but follows
+            console.log("stage - 0")
+            this.following(bodyParts)
+            this.preparing(bodyParts)
+        } // hand closed, wait for open
+        else if (this.stage == 1) {
+            console.log("stage - 1")
+            this.following(bodyParts)
+            this.revealing(bodyParts)
+        } // revealed, wait for releasing
+        else if (this.stage == 2) {
+
+            console.log("stage - 2")
+            this.following(bodyParts)
+            this.releasing(bodyParts)
+        } // released, wait for hands down
+        else if (this.stage == 3) {
+
+            console.log("stage - 3")
             this.swimming(bodyParts)
+            this.hands_down(bodyParts)
+        } // hands down, wait for reattaching
+        else if (this.stage == 4) {
+
+            console.log("stage - 4")
+            this.swimming(bodyParts)
+            this.reattaching(bodyParts)
         }
-        else {
+        else if (this.stage == 5) {
+
+            console.log("stage - 5")
             this.following(bodyParts)
         }
-
     }
 
-    revealing(bodyParts) {
-        // it is finished here
-        if (this.reveal.hand_open) {
-            return
-        }
 
-        if (bodyParts[19].visibility > 0.75 && bodyParts[20].visibility > 0.75 && bodyParts[17].visibility > 0.75) {
+    preparing(bodyParts) {
+        if (bodyParts[19].visibility > 0.85 && bodyParts[20].visibility > 0.85 && bodyParts[17].visibility > 0.85) {
             let leftHand = { x: bodyParts[19].x * 1280, y: bodyParts[19].y * 720 };
             let rightHand = { x: bodyParts[20].x * 1280, y: bodyParts[20].y * 720 };
             let leftHandPinky = { x: bodyParts[17].x * 1280, y: bodyParts[17].y * 720 }
@@ -50,53 +69,58 @@ class Marrella {
             let distance = Math.sqrt(Math.pow(leftHand.x - rightHand.x, 2) + Math.pow(leftHand.y - rightHand.y, 2));
             let fistSize = Math.sqrt(Math.pow(leftHand.x - leftHandPinky.x, 2) + Math.pow(leftHand.y - leftHandPinky.y, 2));
 
-            // hand close
             if (distance < 5 * fistSize) {
                 // reset
-                if (this.reveal.count > 0) {
-                    this.reveal.count = 0
-                }
-                this.reveal.count--
+                this.count++
             }
-            // hand open
             else {
-                // reset
-                if (this.reveal.count < 0) {
-                    this.reveal.count = 0
-                }
-                this.reveal.count++
+                this.count = 0
             }
 
-            // continously close for 3 frame
-            if (this.reveal.count == -5) {
-                // alert("hand_closed")
-                this.reveal.hand_close = true
-                // reset
-                this.reveal.count = 0
-            }// continously open for 3 frame
-            else if (this.reveal.count == 5) {
-                // alert("hand_opened")
-                if (this.reveal.hand_close) {
-                    this.reveal.hand_open = true
-                }
+            if (this.count > 5) {
+                this.stage = 1
+                this.count = 0
             }
-
         }
         else {
-            this.reveal.count = 0;
+            this.count = 0
         }
+    }
 
-        // if hand_open reveal the marrella
-        if (this.reveal.hand_open) {
-            window.marrella.style.zIndex = '2';
-            window.marrella.style.display = 'block'
+    revealing(bodyParts) {
+        if (bodyParts[19].visibility > 0.85 && bodyParts[20].visibility > 0.85 && bodyParts[17].visibility > 0.85) {
+            let leftHand = { x: bodyParts[19].x * 1280, y: bodyParts[19].y * 720 };
+            let rightHand = { x: bodyParts[20].x * 1280, y: bodyParts[20].y * 720 };
+            let leftHandPinky = { x: bodyParts[17].x * 1280, y: bodyParts[17].y * 720 }
+
+            let distance = Math.sqrt(Math.pow(leftHand.x - rightHand.x, 2) + Math.pow(leftHand.y - rightHand.y, 2));
+            let fistSize = Math.sqrt(Math.pow(leftHand.x - leftHandPinky.x, 2) + Math.pow(leftHand.y - leftHandPinky.y, 2));
+
+            if (distance > 5 * fistSize) {
+                // reset
+                this.count++
+            }
+            else {
+                this.count = 0
+            }
+
+            if (this.count > 5) {
+                this.stage = 2
+                this.count = 0
+
+                window.marrella.style.zIndex = '2';
+                window.marrella.style.display = 'block'
+            }
+        }
+        else {
+            this.count = 0
         }
     }
 
     releasing(bodyParts) {
         // it is finished here
 
-        if (bodyParts[11].visibility > 0.75 && bodyParts[12].visibility > 0.75 && bodyParts[13].visibility > 0.75 && bodyParts[14].visibility > 0.75) {
+        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
@@ -105,22 +129,18 @@ class Marrella {
             // releasing/tracking
             if (leftEblow.y < leftShoulder.y && rightEblow.y < rightShoulder.y) {
                 // reset
-                this.release.count++
+                this.count++
             }
             else {
                 // reset
-                this.release.count = 0
+                this.count = 0
             }
 
             // continously close for 5 frame
-            if (this.release.count == 5) {
-                this.release.released = true
-                // reset
-                this.releasing = 0
+            if (this.count > 7) {
+                this.stage = 3
+                this.count = 0
             }
-        }
-        else {
-            this.reveal.count = 0;
         }
 
     }
@@ -139,7 +159,52 @@ class Marrella {
 
     }
 
-    back_to_following(bodyParts) {
+    hands_down(bodyParts) {
+        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+            let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
+            let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
+            let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
+            let rightShoulder = { x: bodyParts[12].x * 1280, y: bodyParts[12].y * 720 }
+
+            // releasing/tracking
+            if (leftEblow.y > leftShoulder.y && rightEblow.y > rightShoulder.y) {
+                // reset
+                this.count++
+            }
+            else {
+                // reset
+                this.count = 0
+            }
+            // continously close for 5 frame
+            if (this.count > 15) {
+                this.stage = 4
+                this.count = 0
+            }
+        }
+    }
+
+    reattaching(bodyParts) {
+        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+            let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
+            let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
+            let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
+            let rightShoulder = { x: bodyParts[12].x * 1280, y: bodyParts[12].y * 720 }
+
+            // releasing/tracking
+            if (leftEblow.y < leftShoulder.y && rightEblow.y < rightShoulder.y) {
+                // reset
+                this.count++
+            }
+            else {
+                // reset
+                this.count = 0
+            }
+            // continously close for 5 frame
+            if (this.count > 5) {
+                this.stage = 5
+                this.count = 0
+            }
+        }
     }
 }
 
@@ -173,6 +238,6 @@ const camera = new Camera(videoElement, {
     },
     width: 1280,
     height: 720,
-	facingMode: 'environment'
+    facingMode: 'environment'
 });
 camera.start();
