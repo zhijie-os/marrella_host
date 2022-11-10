@@ -9,6 +9,7 @@ let HEIGHT = 720
 
 
 class Marrella {
+    first_follow = true
     center = { x: 50, y: 50 }
     width = 500
     height = 500
@@ -21,12 +22,11 @@ class Marrella {
     }
 
     update(bodyParts) {
-
         // check for hand close
         if (this.stage == 0) {
             // hidden, but follows
             console.log("stage - 0")
-            this.following(bodyParts)
+            this.hidden_following(bodyParts)
             this.preparing(bodyParts)
         } // hand closed, wait for open
         else if (this.stage == 1) {
@@ -53,13 +53,17 @@ class Marrella {
             this.reattaching(bodyParts)
         }
         else if (this.stage == 5) {
-
             console.log("stage - 5")
+            this.following(bodyParts)
+            this.hands_down(bodyParts)
+        }
+        else if (this.stage == 6) {
+            console.log("stage - 6")
             this.following(bodyParts)
             this.releasing_for_good(bodyParts)
         }
-        else if(this.stage == 6) {
-            console.log("stage - 6")
+        else if(this.stage == 7) {
+            console.log("stage - 7")
             this.center.x += 2
             window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
             // window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
@@ -85,7 +89,7 @@ class Marrella {
             }
 
             if (this.count > 5) {
-                this.stage = 1
+                this.stage ++
                 this.count = 0
             }
         }
@@ -111,8 +115,8 @@ class Marrella {
                 this.count = 0
             }
 
-            if (this.count > 5) {
-                this.stage = 2
+            if (this.count > 8) {
+                this.stage ++
                 this.count = 0
 
                 window.marrella.style.zIndex = '2';
@@ -145,7 +149,7 @@ class Marrella {
 
             // continously close for 5 frame
             if (this.count > 7) {
-                this.stage = 3
+                this.stage ++
                 this.count = 0
             }
         }
@@ -153,9 +157,28 @@ class Marrella {
     }
 
     following(bodyParts) {
+        if(bodyParts[17].visibility<0.85){
+            return
+        }
         let left_index = bodyParts[17]
         let x = left_index.x * WIDTH
         let y = left_index.y * HEIGHT
+        let dif_x = x- this.center.x 
+        let dif_y = y- this.center.y 
+
+        this.center.x += Math.abs(dif_x) > 3 ? (Math.abs(dif_x)/dif_x)*3 : dif_x
+        this.center.y += Math.abs(dif_y) > 10 ? (Math.abs(dif_y)/dif_y)*10 : dif_y
+        window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
+        window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
+    }
+
+    hidden_following(bodyParts) {
+
+        
+        let left_index = bodyParts[17]
+        let x = left_index.x * WIDTH
+        let y = left_index.y * HEIGHT
+
         this.center.x = x
         this.center.y = y
         window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
@@ -184,7 +207,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 15) {
-                this.stage = 4
+                this.stage += 1 
                 this.count = 0
             }
         }
@@ -208,7 +231,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 5) {
-                this.stage = 5
+                this.stage ++
                 this.count = 0
             }
         }
@@ -232,7 +255,7 @@ class Marrella {
             }
             // continously close for 5 frame
             if (this.count > 8) {
-                this.stage = 6
+                this.stage ++
                 this.count = 0
             }
         }
