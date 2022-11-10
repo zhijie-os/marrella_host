@@ -5,6 +5,15 @@
     z-index: 1;
 }
 
+#segmentation {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: none;
+    width: 1280px;
+    height: 720px;
+}
+
 #marrella {
     position: fixed;
     top: 0px;

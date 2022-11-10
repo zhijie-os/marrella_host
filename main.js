@@ -2,10 +2,17 @@ const videoElement = document.getElementById('video_input');
 
 const marrella_gif = document.getElementById('marrella');
 
+const canvasElement = document.getElementById("segmentation");
+const canvasCtx = canvasElement.getContext("2d");
+
+
 window.marrella_gif = marrella_gif
 
 let WIDTH = 1280
 let HEIGHT = 720
+
+let M_WIDTH = 3000
+let M_HEIGHT = 3000
 
 
 class Marrella {
@@ -130,8 +137,8 @@ class Marrella {
                 this.stage++
                 this.count = 0
 
-                window.marrella.style.zIndex = '2';
-                window.marrella.style.display = 'block'
+                window.marrella_gif.style.zIndex = '2';
+                window.marrella_gif.style.display = 'block'
             }
         }
         else {
@@ -298,11 +305,37 @@ class Marrella {
 }
 
 let marrella = new Marrella()
+window.marrella = marrella
 // event loop
 function onResults(results) {
     if (!results.poseLandmarks) {
         return;
     }
+
+    // canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(
+        results.segmentationMask,
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height)
+
+    let host_size = 0
+    let host = canvasCtx.getImageData(0, 0, canvasElement.width, canvasElement.height);
+    for (let i = 0; i < host.data.length; i++) {
+        if (host.data[i] != 0)
+            host_size++
+    }
+    
+    let ratio = host_size/host.data.length;
+
+    window.marrella_gif.style.width = Math.floor(ratio*M_WIDTH)+"px";
+    window.marrella_gif.style.height = Math.floor(ratio*M_HEIGHT)+"px";
+    window.marrella.width=Math.floor(ratio*M_WIDTH)
+    window.marrella.height = Math.floor(ratio*M_HEIGHT)
+    // console.log(results.segmentationMask.values)
+    // window.host = host
     marrella.update(results.poseLandmarks)
 }
 
