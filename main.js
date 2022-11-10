@@ -10,9 +10,9 @@ let HEIGHT = 720
 
 class Marrella {
     first_follow = true
-    center = { x: 50, y: 50 }
-    width = 500
-    height = 500
+    center = { x: 150, y: 150 }
+    width = 300
+    height = 300
 
     count = 0
     stage = 0
