@@ -238,7 +238,7 @@ class Marrella {
                 this.count = 0
             }
             // continously close for 5 frame
-            if (this.count > 15) {
+            if (this.count > 10) {
                 this.stage += 1
                 this.count = 0
             }
@@ -260,7 +260,7 @@ class Marrella {
                 this.count = 0
             }
             // continously close for 5 frame
-            if (this.count > 15) {
+            if (this.count > 10) {
                 this.stage += 1
                 this.count = 0
             }
