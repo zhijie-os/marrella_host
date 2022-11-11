@@ -83,7 +83,7 @@ class Marrella {
 
 
     preparing(bodyParts) {
-        if (bodyParts[19].visibility > 0.85 && bodyParts[20].visibility > 0.85 && bodyParts[17].visibility > 0.85) {
+        if (bodyParts[19].visibility > 0.8 && bodyParts[20].visibility > 0.8 && bodyParts[17].visibility > 0.8) {
             let leftHand = { x: bodyParts[19].x * 1280, y: bodyParts[19].y * 720 };
             let rightHand = { x: bodyParts[20].x * 1280, y: bodyParts[20].y * 720 };
             let leftHandPinky = { x: bodyParts[17].x * 1280, y: bodyParts[17].y * 720 }
@@ -99,7 +99,7 @@ class Marrella {
                 this.count = 0
             }
 
-            if (this.count > 5) {
+            if (this.count > 3) {
                 this.stage++
                 this.count = 0
             }
@@ -110,7 +110,7 @@ class Marrella {
     }
 
     revealing(bodyParts) {
-        if (bodyParts[19].visibility > 0.85 && bodyParts[20].visibility > 0.85 && bodyParts[17].visibility > 0.85) {
+        if (bodyParts[19].visibility > 0.8 && bodyParts[20].visibility > 0.8 && bodyParts[17].visibility > 0.8) {
             let leftHand = { x: bodyParts[19].x * 1280, y: bodyParts[19].y * 720 };
             let rightHand = { x: bodyParts[20].x * 1280, y: bodyParts[20].y * 720 };
             let leftHandPinky = { x: bodyParts[17].x * 1280, y: bodyParts[17].y * 720 }
@@ -126,7 +126,7 @@ class Marrella {
                 this.count = 0
             }
 
-            if (this.count > 8) {
+            if (this.count > 5) {
                 this.stage++
                 this.count = 0
 
@@ -142,7 +142,7 @@ class Marrella {
     releasing(bodyParts) {
         // it is finished here
 
-        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+        if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[13].visibility > 0.8 && bodyParts[14].visibility > 0.8) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
@@ -168,7 +168,7 @@ class Marrella {
     }
 
     following(bodyParts) {
-        if (bodyParts[17].visibility < 0.85) {
+        if (bodyParts[17].visibility < 0.8) {
             return
         }
         let left_index = bodyParts[17]
@@ -222,7 +222,7 @@ class Marrella {
     }
 
     hands_down(bodyParts) {
-        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+        if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[13].visibility > 0.8 && bodyParts[14].visibility > 0.8) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
@@ -246,7 +246,7 @@ class Marrella {
     }
 
     reattaching(bodyParts) {
-        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+        if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[13].visibility > 0.8 && bodyParts[14].visibility > 0.8) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
@@ -270,7 +270,7 @@ class Marrella {
     }
 
     releasing_for_good(bodyParts) {
-        if (bodyParts[11].visibility > 0.85 && bodyParts[12].visibility > 0.85 && bodyParts[13].visibility > 0.85 && bodyParts[14].visibility > 0.85) {
+        if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[13].visibility > 0.8 && bodyParts[14].visibility > 0.8) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
