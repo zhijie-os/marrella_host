@@ -75,11 +75,12 @@ class Marrella {
         }
         else if (this.stage == 7) {
             console.log("stage - 7")
-            this.center.x += 5
+            this.center.x += 2
             window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
             // window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
         }
     }
+
 
     preparing(bodyParts) {
         if (bodyParts[19].visibility > 0.8 && bodyParts[20].visibility > 0.8 && bodyParts[17].visibility > 0.8) {
@@ -337,8 +338,8 @@ pose.setOptions({
     smoothLandmarks: true,
     enableSegmentation: true,
     smoothSegmentation: true,
-    minDetectionConfidence: 0.8,
-    minTrackingConfidence: 0.8
+    minDetectionConfidence: 0.65,
+    minTrackingConfidence: 0.65
 });
 pose.onResults(onResults);
 
