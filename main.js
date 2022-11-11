@@ -193,7 +193,7 @@ class Marrella {
         this.center.x = x
         this.center.y = y
         window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
-        window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
+        window.marrella_gif.style.top = (this.center.y - this.height / 2 - 10) + 'px';
     }
 
 
@@ -225,6 +225,28 @@ class Marrella {
         if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[13].visibility > 0.8 && bodyParts[14].visibility > 0.8) {
             let leftEblow = { x: bodyParts[13].x * 1280, y: bodyParts[13].y * 720 };
             let rightEblow = { x: bodyParts[14].x * 1280, y: bodyParts[14].y * 720 };
+            let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
+            let rightShoulder = { x: bodyParts[12].x * 1280, y: bodyParts[12].y * 720 }
+
+            // releasing/tracking
+            if (leftEblow.y > leftShoulder.y && rightEblow.y > rightShoulder.y) {
+                // reset
+                this.count++
+            }
+            else {
+                // reset
+                this.count = 0
+            }
+            // continously close for 5 frame
+            if (this.count > 15) {
+                this.stage += 1
+                this.count = 0
+            }
+        }
+
+        else if (bodyParts[11].visibility > 0.8 && bodyParts[12].visibility > 0.8 && bodyParts[15].visibility > 0.8 && bodyParts[16].visibility > 0.8) {
+            let leftEblow = { x: bodyParts[15].x * 1280, y: bodyParts[15].y * 720 };
+            let rightEblow = { x: bodyParts[16].x * 1280, y: bodyParts[16].y * 720 };
             let leftShoulder = { x: bodyParts[11].x * 1280, y: bodyParts[11].y * 720 }
             let rightShoulder = { x: bodyParts[12].x * 1280, y: bodyParts[12].y * 720 }
 
