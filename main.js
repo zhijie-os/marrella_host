@@ -75,12 +75,11 @@ class Marrella {
         }
         else if (this.stage == 7) {
             console.log("stage - 7")
-            this.center.x += 2
+            this.center.x += 5
             window.marrella_gif.style.left = (this.center.x - this.width / 2) + 'px';
             // window.marrella_gif.style.top = (this.center.y - this.height / 2) + 'px';
         }
     }
-
 
     preparing(bodyParts) {
         if (bodyParts[19].visibility > 0.8 && bodyParts[20].visibility > 0.8 && bodyParts[17].visibility > 0.8) {
